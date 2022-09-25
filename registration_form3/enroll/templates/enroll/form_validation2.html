@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <form action = "" name = "myform">
+            username <input type = 'text' name = 'u_name'><br><br>
+            <input type = "submit" name = 'sbtn' value = 'Submit'>
+        </form>
+        <script>
+            function validatedata(){
+                //regex pattern
+                //var ptrn = /^([^0-9]*)$/;
+                var ptrn=/[^A-Z]/ig;
+                if(ptrn.test(document.myform.u_name.value)){
+                    document.myform.u_name.style.backgroundColor = 'green';
+                }
+                else{
+                    document.myform.u_name.style.backgroundColor = 'red';
+                }
+            }
+            document.myform.u_name.addEventListener('keyup', validatedata);
+        </script>
+    </body>
+</html>

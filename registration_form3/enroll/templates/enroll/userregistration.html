@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registraion Form 2</title>
+        <script type = 'text/javascript'>
+            function validate(){
+                var name = document.getElementById('id_name');
+                var email = document.getElementById('id_email');
+                var password = document.getElementById('id_password');
+
+            }
+        </script>
+    </head>
+    <body>
+        <form id = 'form' action = '' method = 'POST' novalidate>
+            {% csrf_token %}
+            {{form}}
+            <button type = 'submit'>Submit</button>
+        </form>
+        <div id="show_error">No validation error yet!</div>
+        <script type = 'text/javascript'>
+            const form = document.getElementById('form');
+            const errorDiv = document.querySelector('#show-error');
+            const name = document.querySelector('#id_name');
+            const email = document.querySelector('#id_email');
+            const password = document.querySelector('#id_password');
+            alert(form);
+            form.addEventListener('submit', function todo(){
+                alert('after submit click');
+                let incorrectInput = '';
+                const firstLetter = name.value[0];
+                const firstLetterIsUpperCase = (firstLetter === firstLetter.toUpperCase()); 
+                if (!firstLetterIsUpperCase) {
+                    incorrectInput += ' The first letter of username must be uppercase.\n';
+                }
+                if (incorrectInput !== "") {
+                    // Change the error div tag to display the error message(s)
+                    errorDiv.innerText = incorrectInput; 
+                    // Change the color of the text to red
+                    errorDiv.style.color = 'red'; 
+                    // Prevent the form button from submitting again, before fixing the issues
+                    error.preventDefault();
+                }
+                
+            };
+        </script>
+    </body>
+</html>

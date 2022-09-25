@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="mobikasa-test" ></script>
+<form action="http://localhost:8081/admin/diagrams/upload" method="post" enctype="multipart/form-data">
+  Select csv to upload:
+  <input type="file" name="csvData_1" id="fileToUpload">
+  <input type="text" name="diagramName_1" id="diagramName">
+  <input type="text" name="modelNumber_1" id="modelNumber">
+    Select image to upload:
+  <input type="file" name="images_1" id="images1">
+   Select csv2 to upload:
+  <input type="file" name="csvData_2" id="fileToUpload2">
+  <input type="text" name="diagramName_2" id="diagramName2">
+  <input type="text" name="modelNumber_2" id="modelNumber2">
+    Select image2 to upload:
+  <input type="file" name="images_2" id="images2">
+  <input type="submit" value="Upload Image" name="submit">
+</form>
+
+</body>
+</html>
+

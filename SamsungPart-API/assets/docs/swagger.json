@@ -1,0 +1,1265 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Swagger For Samsung Parts S3",
+    "termsOfService": "",
+    "contact": {
+      "email": ""
+    }
+   
+  },
+
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Admin",
+      "description": "Operations about admin",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1/admin": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Create admin",
+        "description": "",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+                  "name":"access_token",
+                  "in":"header",
+                  "description":"Access token received in signin API response",
+                  "required":true,
+                  "type":"string",
+                  "default":""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addUser"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+       "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get All admins",
+        "description": "",
+        "operationId": "getUserByName",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+                  "name":"access_token",
+                  "in":"header",
+                  "description":"Access token received in signin API response",
+                  "required":true,
+                  "type":"string",
+                  "default":""
+         }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/{id}": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Update user deteails",
+        "description": "",
+        "operationId": "updateAdmin",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+                  "name":"access_token",
+                  "in":"header",
+                  "description":"Access token received in signin API response",
+                  "required":true,
+                  "type":"string",
+                  "default":""
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "addUser object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/addUser"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Delete user deteails",
+        "description": "",
+        "operationId": "updateAdmin",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+                  "name":"access_token",
+                  "in":"header",
+                  "description":"Access token received in signin API response",
+                  "required":true,
+                  "type":"string",
+                  "default":""
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    
+    "/api/v1/admin/login": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "The user name for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/logout": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "logout user",
+        "description": "",
+        "operationId": "logout",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/forgot": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "The user name for login",
+            "required": true,
+            "type": "object",
+            "example":{"email":"testskm@gmail.com"}
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/reset-password": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Reset password",
+        "description": "",
+        "operationId": "reset-password",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "reset_token",
+            "in": "formData",
+            "description": "reset_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "new_password",
+            "in": "formData",
+            "description": "new_password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "new_password_confirm",
+            "in": "formData",
+            "description": "new_password_confirm",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagrams": {
+      "post": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "create diagram",
+        "description": "",
+        "operationId": "create-diagram",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "diagramName",
+            "in": "formData",
+            "description": "diagramName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "modelNumber",
+            "in": "formData",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "csvData",
+            "in": "formData",
+            "description": "csvData",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "images",
+            "in": "formData",
+            "description": "images",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "get diagrams",
+        "description": "",
+        "operationId": "get-diagram",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in":"query",
+            "description": "page",
+            "required": false,
+            "type": "number",
+            "default":1
+          },
+          {
+            "name": "limit",
+            "in":"query",
+            "description": "limit",
+            "required": false,
+            "type": "number",
+            "default":10
+          },
+          {
+            "name": "sortBy",
+            "in":"query",
+            "description": "sortBy",
+            "required": false,
+            "type": "string",
+            "default":"createdAt"
+          },
+          {
+            "name": "sortOrder",
+            "in":"query",
+            "description": "sortOrder",
+            "required": false,
+            "type": "string",
+            "default":"DESC"
+          },
+          {
+            "name": "diagramName",
+            "in":"query",
+            "description": "diagramName",
+            "required": false,
+            "type": "string",
+            "default":""
+          },
+          {
+            "name": "modelNumber",
+            "in":"query",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string",
+            "default":""
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagrams/{id}": {
+      "put": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "update diagram",
+        "description": "",
+        "operationId": "update-diagram",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "diagramName",
+            "in": "formData",
+            "description": "diagramName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "modelNumber",
+            "in": "formData",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "csvData",
+            "in": "formData",
+            "description": "csvData",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "images",
+            "in": "formData",
+            "description": "images",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "delete diagram",
+        "description": "",
+        "operationId": "delete-diagram",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "get diagram details",
+        "description": "",
+        "operationId": "get-diagram-details",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagrams/upload": {
+      "post": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "create diagram",
+        "description": "",
+        "operationId": "uplaod-diagram",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "diagramName_1",
+            "in": "formData",
+            "description": "diagramName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "modelNumber_1",
+            "in": "formData",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "csvData_1",
+            "in": "formData",
+            "description": "csvData",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "images_1",
+            "in": "formData",
+            "description": "images",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "diagramName_2",
+            "in": "formData",
+            "description": "diagramName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "modelNumber_2",
+            "in": "formData",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "csvData_2",
+            "in": "formData",
+            "description": "csvData",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "images_2",
+            "in": "formData",
+            "description": "images",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagrams/uploadimages": {
+      "post": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "create diagram",
+        "description": "",
+        "operationId": "uplaod-diagram-images",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "images",
+            "in": "formData",
+            "description": "images",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    
+    "/api/v1/admin/diagrams/getDiagramDetailsByName": {
+      "get": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "create diagram",
+        "description": "",
+        "operationId": "getDiagramDetailsByName",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "diagramName",
+            "in": "query",
+            "description": "diagramName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "modelNumber",
+            "in": "query",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagrams/download": {
+      "get": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "download diagram",
+        "description": "",
+        "operationId": "diagramdownload",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "diagramName",
+            "in": "query",
+            "description": "diagramName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modelNumber",
+            "in": "query",
+            "description": "modelNumber",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "id comma seprated like 1,2,3",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    
+    "/api/v1/admin/diagrams/download/{id}": {
+      "get": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "update diagram",
+        "description": "",
+        "operationId": "update-diagram",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+
+
+    "/api/v1/admin/diagram/parts": {
+      "post": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "create diagram parts",
+        "description": "",
+        "operationId": "create-diagram-parts",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "diagramId",
+            "in": "formData",
+            "description": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "materialCode",
+            "in": "formData",
+            "description": "materialCode",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "partNo",
+            "in": "formData",
+            "description": "partNo",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "no",
+            "in": "formData",
+            "description": "no",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "specification",
+            "in": "formData",
+            "description": "specification",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "seoDescription",
+            "in": "formData",
+            "description": "seoDescription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "seoTitle",
+            "in": "formData",
+            "description": "seoTitle",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagram/parts/{id}": {
+      "put": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "update diagram parts",
+        "description": "",
+        "operationId": "update-diagram-parts",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "materialCode",
+            "in": "formData",
+            "description": "materialCode",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "partNo",
+            "in": "formData",
+            "description": "partNo",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "no",
+            "in": "formData",
+            "description": "no",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "specification",
+            "in": "formData",
+            "description": "specification",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "seoDescription",
+            "in": "formData",
+            "description": "seoDescription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "seoTitle",
+            "in": "formData",
+            "description": "seoTitle",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "coordinates",
+            "in": "formData",
+            "description": "coordinates",
+            "required": false,
+            "type": "string",
+            "default": {"x":10,"y":23}
+          }
+          
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Diagram"
+        ],
+        "summary": "create diagram parts",
+        "description": "",
+        "operationId": "delete-diagram-parts",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "description": "id of diagram part",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/getErrors": {
+      "get": {
+        "tags": [
+          "Error"
+        ],
+        "summary": "getErrors",
+        "description": "",
+        "operationId": "getErrors",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in":"header",
+            "description": "access_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "startTime",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in":"query",
+            "description": "page",
+            "required": false,
+            "type": "number",
+            "default":1
+          },
+          {
+            "name": "limit",
+            "in":"query",
+            "description": "limit",
+            "required": false,
+            "type": "number",
+            "default":10
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+    
+    
+ 
+  },
+  "securityDefinitions": {
+    "Samsung Parts_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://Samsung Parts.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "addUser": {
+      "type": "object",
+      "required": [
+       	"email", "firstName",  "lastName", "gender", "password", "dateOfBirth", "address"
+      ],
+      "properties": {
+        "email": {
+          "type": "email",
+           "example": "test@gmail.com"
+        },
+        "password": {
+          "type": "password",
+           "example": "password"
+        },
+        "firstName": {
+          "type": "string",
+           "example": "surendra"
+        },
+        "lastName": {
+          "type": "string",
+           "example": "maurya"
+        }
+
+      },
+      "xml": {
+        "name": "addProvider"
+      }
+    },
+    "updateUser": {
+      "type": "object",
+      "required": [
+       	"email", "firstName",  "lastName", "gender", "password", "dateOfBirth", "address"
+      ],
+      "properties": {
+        "email": {
+          "type": "email",
+           "example": "test@gmail.com"
+        },
+        "password": {
+          "type": "password",
+           "example": "password"
+        },
+        "firstName": {
+          "type": "string",
+           "example": "surendra"
+        },
+        "lastName": {
+          "type": "string",
+           "example": "maurya"
+        }
+      },
+      "xml": {
+        "name": "addProvider"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

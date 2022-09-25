@@ -1,0 +1,17 @@
+{% load render_table from django_tables2 %}
+{% load bootstrap3 %}
+
+{% if filter %}
+    <form action="" method="get" class="form form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        {% bootstrap_button 'filter' %}
+    </form>
+{% endif %}
+<center>
+    <form name = "search" action = "" method = "GET">
+        <label for = "text_box">Enter candidate to be searched<br>
+        <input type = "text" id = "text_box" name = "text_box" required>
+        <input type = "submit" value = "submit">
+    </form>
+</center>
+<center>{% render_table table 'django_tables2/bootstrap.html' %}</center>
